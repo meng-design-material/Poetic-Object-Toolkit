@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>詩境造物：設計心理學靈感工具包</title>
+    <style>
+        :root {
+            --bg-color: #fdfcf8;
+            --text-color: #2c3e50;
+            --accent-color: #7f8c8d;
+            --highlight-color: #a33b3b; /* 硃砂紅，增加文化質感 */
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: "PingFang TC", "Noto Serif TC", "Microsoft JhengHei", serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            padding: 50px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            background: #fff;
+        }
+
+        h1 { margin: 0; font-size: 2rem; letter-spacing: 4px; }
+        .subtitle { color: #7f8c8d; font-size: 0.9rem; margin-top: 10px; }
+
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* 矩陣展示區 */
+        .inspiration-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            min-height: 300px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        #poetry-display {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: var(--highlight-color);
+            margin-bottom: 30px;
+            display: block;
+        }
+
+        .clue-box {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+            text-align: left;
+        }
+
+        .clue-label {
+            font-weight: bold;
+            color: #333;
+            display: inline-block;
+            margin-bottom: 8px;
+            background: #f0f0f0;
+            padding: 2px 8px;
+            font-size: 0.85rem;
+        }
+
+        #trigger-display {
+            color: #555;
+            font-style: italic;
+        }
+
+        /* 按鈕設計 */
+        .action-area {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        button {
+            background: var(--text-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: var(--highlight-color);
+            transform: translateY(-2px);
+        }
+
+        /* 設計腳本區 (Scaffolding) */
+        .scaffolding-section {
+            background: #f9f9f9;
+            padding: 30px;
+            border: 1px dashed #ccc;
+            margin-top: 50px;
+        }
+
+        .scaffolding-section h3 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            border-bottom: 2px solid var(--highlight-color);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .script-item {
+            margin: 15px 0;
+            font-size: 0.95rem;
+        }
+
+        .script-input {
+            border: none;
+            border-bottom: 1px solid #999;
+            background: transparent;
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+            font-family: inherit;
+            color: var(--highlight-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #bbb;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 600px) {
+            #poetry-display { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>詩境造物 Poetic Object</h1>
+    <div class="subtitle">設計心理學：用戶需求洞察與意象轉化工具包</div>
+</header>
+
+<div class="main-content">
+    <div class="inspiration-card">
+        <span id="poetry-display">點擊下方按鈕開始</span>
+        
+        <div class="clue-box">
+            <span class="clue-label">核心質感與心理模型</span>
+            <p id="clue-display">請抽取一組詩詞，分析其蘊含的物理屬性與心理情境。</p>
+        </div>
+
+        <div class="clue-box">
+            <span class="clue-label">設計觸發 (Design Triggers)</span>
+            <p id="trigger-display">這裡將顯示針對用戶行為與洞察的引導問題。</p>
+        </div>
+    </div>
+
+    <div class="action-area">
+        <button onclick="generate()">激發設計洞察</button>
+    </div>
+
+    <div class="scaffolding-section">
+        <h3>設計腳本練習 (Scaffolding)</h3>
+        <p style="font-size: 0.85rem; color: #666;">請根據抽取的靈感，嘗試填寫以下邏輯鏈條：</p>
+        
+        <div class="script-item">
+            1. 我提取的物理特徵（如：斷續的、隱藏的、極其穩定的）：
+            <input type="text" class="script-input" placeholder="在此輸入...">
+        </div>
+        <div class="script-item">
+            2. 此特徵對應的心理需求（如：安全感、好奇心、減少認知負擔）：
+            <input type="text" class="script-input" placeholder="在此輸入...">
+        </div>
+        <div class="script-item">
+            3. 具體的交互應用場景（用戶在什麼時候會體驗到這個設計？）：
+            <input type="text" class="script-input" placeholder="在此輸入...">
+        </div>
+        <div class="script-item">
+            4. 預期的心理反饋（用戶使用後會感到...）：
+            <input type="text" class="script-input" placeholder="在此輸入...">
+        </div>
+    </div>
+</div>
+
+<footer>
+    此工具包旨在輔助《設計心理學》課程練習，不提供具體設計答案。
+</footer>
+
+<script>
+    const database = [
+        {
+            poetry: "大漠孤煙直",
+            clue: "核心質感：垂直、單一、絕對穩定。心理模型：極度空曠環境中的「視覺依賴」與「確定感」。",
+            trigger: "洞察：思考用戶在混亂系統中尋找「唯一入口」的心理。若這是一個物件，它如何通過垂直張力建立用戶的信任感？"
+        },
+        {
+            poetry: "隨風潛入夜",
+            clue: "核心質感：無聲、擴散、被動介入。心理模型：用戶在無意識狀態下的「潛在需求滿足」。",
+            trigger: "洞察：什么样的交互能做到「不被察覺的體貼」？思考自動感應環境（溫、光、濕）如何減少用戶的操作負擔？"
+        },
+        {
+            poetry: "明月松間照",
+            clue: "核心質感：斑駁、破碎的光影、自然過濾。心理模型：多任務環境下的「視覺注意力轉移」。",
+            trigger: "洞察：當環境光與產品信息重疊時，用戶會產生什麼心理反饋？如何利用「遮擋」來創造有趣的信息解密體驗？"
+        },
+        {
+            poetry: "採菊東籬下",
+            clue: "核心質感：邊界、框架、悠然切換。心理模型：從「生產狀態」切換至「放鬆狀態」的心理閾值。",
+            trigger: "洞察：產品如何通過物理結構的改變（如開合、旋轉），暗示用戶角色的轉變並幫助其建立心理邊界？"
+        },
+        {
+            poetry: "輕羅小扇撲流螢",
+            clue: "核心質感：輕盈、微光、動態追逐。心理模型：交互過程中的「感官愉悅」與「情緒獎勵」。",
+            trigger: "洞察：除了功能性，用戶對「操作趣味性」的渴求在哪裡？如何設計一個讓用戶忍不住反覆把玩的微互動？"
+        },
+        {
+            poetry: "留得枯荷聽雨聲",
+            clue: "核心質感：殘缺、聲響回饋、載體。心理模型：對「消逝事物」的情感補償與「磨損美學」。",
+            trigger: "洞察：產品老化後，其材質聲音的改變是否能變成一種情感紐帶？思考如何將「物理痕跡」轉化為「用戶記憶」。"
+        },
+        {
+            poetry: "舉杯邀明月",
+            clue: "核心質感：反射、虛擬對稱、陪伴。心理模型：孤獨感下的「社交代償」與心理暗示。",
+            trigger: "洞察：獨處產品如何利用鏡面、投影或語音，建立一種「擬人化」的陪伴邏輯，緩解用戶的隔離焦慮？"
+        },
+        {
+            poetry: "疏影橫斜水清淺",
+            clue: "核心質感：折射、模糊邊界、通透。心理模型：面對「不確定性」時的好奇與探索慾。",
+            trigger: "洞察：信息如果不完全透明（如半遮蔽的界面），會如何激發用戶的探索行為？這種視覺障礙是否能轉化為設計美感？"
+        },
+        {
+            poetry: "野火燒不盡",
+            clue: "核心質感：韌性、再生、循環。心理模型：對「耐用度」與「生命力」的長期信任。",
+            trigger: "洞察：產品如何展示其「自我修復」的交互邏輯？當用戶發現產品具備長期韌性時，忠誠度會如何變化？"
+        },
+        {
+            poetry: "落紅不是無情物",
+            clue: "核心質感：轉化、反哺、連結。心理模型：資源循環中的「自我實現」與「道德補償」。",
+            trigger: "洞察：在產品棄置或回收階段，如何通過交互讓用戶感到自己的行為「滋養」了下一個循環？"
+        },
+        {
+            poetry: "雲深不知處",
+            clue: "核心質感：層次遮蔽、未知、局部可見。心理模型：系統導航迷失中的「信任機制」與「安全感」。",
+            trigger: "洞察：在用戶看不見系統全貌（如隱藏菜單）時，如何給予足夠的心理線索，讓用戶敢於探索而不感到焦慮？"
+        },
+        {
+            poetry: "千山鳥飛絕",
+            clue: "核心質感：極度空靈、消除噪音、留白。心理模型：信息過載時代的「專注屏障」。",
+            trigger: "洞察：如何通過「消除功能」來提升價值？設計一個旨在保護用戶专注力的產品，需要排除哪些心理干擾？"
+        },
+        {
+            poetry: "萬徑人蹤滅",
+            clue: "核心質感：痕跡缺失、靜止、冷峻。心理模型：對「環境熟悉度」的心理渴求。",
+            trigger: "洞察：如果產品交互不留下任何歷史記錄（足跡），用戶會感到自由還是恐懼？思考「歷史路徑」在交互中的心理作用。"
+        },
+        {
+            poetry: "銀瓶乍破水漿迸",
+            clue: "核心質感：瞬間、張力爆發、衝擊。心理模型：壓力積壓後的「極致釋放」心理。",
+            trigger: "洞察：思考緊急開關或釋放類產品的「物理反饋」。如何通過聲音、手感傳達出一種「徹底解決問題」的爽快感？"
+        },
+        {
+            poetry: "間關鶯語花底滑",
+            clue: "核心質感：流暢、圓潤、阻力平衡。心理模型：對「心流狀態」與「控制感」的期待。",
+            trigger: "洞察：旋鈕或滑軌的阻尼感如何影響用戶對「品質」的判斷？思考「流暢度」如何對應用戶的心境平和。"
+        },
+        {
+            poetry: "忽如一夜春風來",
+            clue: "核心質感：突變、驚喜、覆蓋。心理模型：對「意外彩蛋」與「預期外獎勵」的反應。",
+            trigger: "洞察：產品的功能隱藏在日常外貌下，突然揭曉時會帶來怎樣的用戶驚喜？這種驚喜如何轉化為品牌好感度？"
+        },
+        {
+            poetry: "綠蟻新醅酒",
+            clue: "核心質感：質地、氣泡感、溫熱。心理模型：等待過程中的「焦慮轉化」與「儀式感」。",
+            trigger: "洞察：將產品的等待時間（如充電、燒水）視為一種體驗。如何通過微小的視聽反饋，讓用戶享受這段等待？"
+        },
+        {
+            poetry: "晚來天欲雪",
+            clue: "核心質感：預感、包裹感、溫暖。心理模型：進入新環境前的「預補償」需求。",
+            trigger: "洞察：產品如何「感知用戶即將到來」？思考智能家居如何利用心理預期，提前佈置好合適的感官氛圍。"
+        },
+        {
+            poetry: "不敢高聲語",
+            clue: "核心質感：壓抑、秘密、空間敬畏。心理模型：特定情境下的「隱私邊界」與「禮儀自律」。",
+            trigger: "洞察：在公共場合，產品應如何自動切換交互模式，以順應用戶「不想引人注意」或「保護隱私」的心理？"
+        },
+        {
+            poetry: "念天地之悠悠",
+            clue: "核心質感：極大空間感、渺小感、沈思。心理模型：面對宏大系統時的「心理敬畏」。",
+            trigger: "洞察：數據可視化產品如何表現數據的龐大，同時不讓用戶感到無力？如何建立人與宏觀系統的聯結？"
+        }
+    ];
+
+    function generate() {
+        const display = document.getElementById('poetry-display');
+        const clue = document.getElementById('clue-display');
+        const trigger = document.getElementById('trigger-display');
+        
+        // 簡單的隨機邏輯
+        const randomItem = database[Math.floor(Math.random() * database.length)];
+        
+        display.innerText = randomItem.poetry;
+        clue.innerText = randomItem.clue;
+        trigger.innerText = randomItem.trigger;
+
+        // 清空腳本輸入框，鼓勵重新思考
+        const inputs = document.querySelectorAll('.script-input');
+        inputs.forEach(input => input.value = "");
+    }
+</script>
+
+</body>
+</html>
